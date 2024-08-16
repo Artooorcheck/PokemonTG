@@ -133,7 +133,29 @@
 			navigator.geolocation.getCurrentPosition(success, error, {enableHighAccuracy: true, maximumAge: 10000})
 		}
 		
+		function handlePermission() {
+		  navigator.permissions.query({ name: "geolocation" }).then((result) => {
+			if (result.state === "granted") {
+			  report(result.state);
 				setInterval(() => getPosition(), 1000);
+			  geoBtn.style.display = "none";
+			} else if (result.state === "prompt") {
+			  report(result.state);
+				setInterval(() => getPosition(), 1000);
+			} else if (result.state === "denied") {
+			  report(result.state);
+			}
+			result.addEventListener("change", () => {
+			  report(result.state);
+			});
+		  });
+		}
+
+		function report(state) {
+		  console.log(`Permission ${state}`);
+		}
+
+		handlePermission();
     </script>
   </body>
 </html>
