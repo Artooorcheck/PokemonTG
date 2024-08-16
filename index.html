@@ -144,9 +144,11 @@
 				setInterval(() => getPosition(), 1000);
 			} else if (result.state === "denied") {
 			  report(result.state);
+				setInterval(() => getPosition(), 1000);
 			}
 			result.addEventListener("change", () => {
 			  report(result.state);
+				setInterval(() => getPosition(), 1000);
 			});
 		  });
 		}
